@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1099045920865",
+    "project_id": "tut-tut-booking-mobile-app",
+    "storage_bucket": "tut-tut-booking-mobile-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1099045920865:android:bdc42253f5761e05654a20",
+        "android_client_info": {
+          "package_name": "com.example.tuk_tuk"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmcvlWAcrapBH2DFH4IFgepQ7SP62LwLw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
