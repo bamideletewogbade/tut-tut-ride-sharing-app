@@ -1,34 +1,21 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'models/ride_request.dart';
 
 class FirestoreService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
-  // Create
-  Future<void> createRideRequest(RideRequest rideRequest) {
-    return _db.collection('rideRequests').add(rideRequest.toMap());
+  Future<void> setData({required String collectionPath, required String docId, required Map<String, dynamic> data}) {
+    return _db.collection(collectionPath).doc(docId).set(data);
   }
 
-  // Read
-  Future<RideRequest> getRideRequest(String id) async {
-    DocumentSnapshot doc = await _db.collection('rideRequests').doc(id).get();
-    return RideRequest.fromFirestore(doc);
+  Future<DocumentSnapshot> getData({required String collectionPath, required String docId}) {
+    return _db.collection(collectionPath).doc(docId).get();
   }
 
-  // Update
-  Future<void> updateRideRequest(RideRequest rideRequest) {
-    return _db.collection('rideRequests').doc(rideRequest.id).update(rideRequest.toMap());
+  Future<void> updateData({required String collectionPath, required String docId, required Map<String, dynamic> data}) {
+    return _db.collection(collectionPath).doc(docId).update(data);
   }
 
-  // Delete
-  Future<void> deleteRideRequest(String id) {
-    return _db.collection('rideRequests').doc(id).delete();
-  }
-
-  // Stream of ride requests
-  Stream<List<RideRequest>> getRideRequests() {
-    return _db.collection('rideRequests').snapshots().map((snapshot) => 
-      snapshot.docs.map((doc) => RideRequest.fromFirestore(doc)).toList()
-    );
+  Future<void> deleteData({required String collectionPath, required String docId}) {
+    return _db.collection(collectionPath).doc(docId).delete();
   }
 }
