@@ -1,4 +1,8 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
+import 'package:tuk_tuk/screens/login_screen.dart';
+import 'package:tuk_tuk/screens/signup_screen.dart';
 import 'package:tuk_tuk/utils.dart/colors.dart';
 
 class MySplashScreen extends StatelessWidget {
@@ -29,6 +33,7 @@ class MySplashScreen extends StatelessWidget {
                     image: AssetImage(
                       "assets/images/tuk.jpg",
                     ),
+                    fit: BoxFit.cover,
                   ),
                 ),
               ),
@@ -63,9 +68,7 @@ class MySplashScreen extends StatelessWidget {
                     ),
                     SizedBox(height: size.height * 0.07),
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 30,
-                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 30),
                       child: Container(
                         height: size.height * 0.08,
                         width: size.width,
@@ -96,23 +99,36 @@ class MySplashScreen extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(15),
                                 ),
                                 child: Center(
-                                  child: Text(
-                                    "Register",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20,
-                                      color: textColor1,
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              const SignupScreen(),
+                                        ),
+                                      );
+                                    },
+                                    child: Text(
+                                      "Sign up",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20,
+                                        color: textColor1,
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
-                              const Spacer(),
+                              const SizedBox(
+                                width: 25,
+                              ),
                               GestureDetector(
                                 onTap: () {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => Scaffold(),
+                                      builder: (context) => const LoginScreen(),
                                     ),
                                   );
                                 },
@@ -125,7 +141,7 @@ class MySplashScreen extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              const Spacer(),
+                              // const Spacer(),
                             ],
                           ),
                         ),
