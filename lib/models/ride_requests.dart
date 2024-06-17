@@ -1,16 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Ride {
-  String rideId;
-  String userId;
-  String driverId;
-  String pickupLocation;
-  String dropoffLocation;
-  DateTime requestTime;
-  DateTime? pickupTime;
-  DateTime? dropoffTime;
-  double fare;
-  String status; // e.g., pending, accepted, completed
+  final String rideId;
+  final String userId;
+  final String driverId;
+  final GeoPoint pickupLocation;
+  final GeoPoint dropoffLocation;
+  final DateTime requestTime;
+  final double fare;
+  final String status;
 
   Ride({
     required this.rideId,
@@ -19,37 +17,56 @@ class Ride {
     required this.pickupLocation,
     required this.dropoffLocation,
     required this.requestTime,
-    this.pickupTime,
-    this.dropoffTime,
     required this.fare,
     required this.status,
   });
 
-  factory Ride.fromMap(Map<String, dynamic> data) {
+  factory Ride.fromFirestore(DocumentSnapshot doc) {
+    final data = doc.data() as Map<String, dynamic>;
     return Ride(
-      rideId: data['rideId'] ?? '',
-      userId: data['userId'] ?? '',
-      driverId: data['driverId'] ?? '',
-      pickupLocation: data['pickupLocation'] ?? '',
-      dropoffLocation: data['dropoffLocation'] ?? '',
+      rideId: doc.id,
+      userId: data['userId'],
+      driverId: data['driverId'],
+      pickupLocation: data['pickupLocation'],
+      dropoffLocation: data['dropoffLocation'],
       requestTime: (data['requestTime'] as Timestamp).toDate(),
-      pickupTime: data['pickupTime'] != null ? (data['pickupTime'] as Timestamp).toDate() : null,
-      dropoffTime: data['dropoffTime'] != null ? (data['dropoffTime'] as Timestamp).toDate() : null,
-      fare: data['fare']?.toDouble() ?? 0.0,
-      status: data['status'] ?? 'pending',
+      fare: data['fare'].toDouble(),
+      status: data['status'],
+    );
+  }
+
+  factory Ride.fromMap(Map<String, dynamic> data, String id) {
+    return Ride(
+      rideId: id,
+      userId: data['userId'],
+      driverId: data['driverId'],
+      pickupLocation: data['pickupLocation'],
+      dropoffLocation: data['dropoffLocation'],
+      requestTime: (data['requestTime'] as Timestamp).toDate(),
+      fare: data['fare'].toDouble(),
+      status: data['status'],
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
-      'rideId': rideId,
       'userId': userId,
       'driverId': driverId,
       'pickupLocation': pickupLocation,
       'dropoffLocation': dropoffLocation,
       'requestTime': requestTime,
-      'pickupTime': pickupTime,
-      'dropoffTime': dropoffTime,
+      'fare': fare,
+      'status': status,
+    };
+  }
+
+  Map<String, dynamic> toFirestore() {
+    return {
+      'userId': userId,
+      'driverId': driverId,
+      'pickupLocation': pickupLocation,
+      'dropoffLocation': dropoffLocation,
+      'requestTime': requestTime,
       'fare': fare,
       'status': status,
     };
