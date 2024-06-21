@@ -122,7 +122,7 @@ class _HomeScreenState extends State<HomeScreen> {
       userId: 'testUser',
       driverId: 'testDriver',
       pickupLocation: GeoPoint(_currentPosition.latitude, _currentPosition.longitude),
-      dropoffLocation: GeoPoint(0, 0), // Assume dropoff is not defined
+      dropoffLocation: GeoPoint(0, 0),
       requestTime: DateTime.now(),
       fare: 10.0,
       status: 'pending',
@@ -135,7 +135,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Campus Transport App'),
-        automaticallyImplyLeading: false, // Removes the back button
+        automaticallyImplyLeading: false, 
       ),
       body: Stack(
         children: [
